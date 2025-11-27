@@ -19,7 +19,7 @@ def seed_database():
         user_data = [
             {"username": "john_don", "email": "john@example.com", "password": "password123", "full_name": "John Doe", "gender": "male", "phone": "+1-555-0101"},
             {"username": "jane_smith", "email": "jane@example.com", "password": "password123", "full_name": "Jane Smith", "gender": "female", "phone": "+1-555-0102"},
-            {"username": "mike_wilson", "email": "mike@example.com", "password": "password123", "full_name": "Mike Wilson", "gender": "male", "phone": "+1-555-0103"},
+            {"username": "mike_willson", "email": "mike@example.com", "password": "password123", "full_name": "Mike Wilson", "gender": "male", "phone": "+1-555-0103"},
             {"username": "sarah_jones", "email": "sarah@example.com", "password": "password123", "full_name": "Sarah Jones", "gender": "female", "phone": "+1-555-0104"},
             {"username": "alex_brown", "email": "alex@example.com", "password": "password123", "full_name": "Alex Brown", "gender": "non-binary", "phone": "+1-555-0105"},
         ]
