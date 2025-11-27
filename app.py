@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
@@ -6,49 +7,14 @@ from datetime import datetime, timedelta
 import os
 
 app = Flask(__name__)
+CORS(app, origins="*", supports_credentials=True)
 
-
-def _apply_cors(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-    return response
-
-
-@app.before_request
-def handle_preflight():
-    if request.method == 'OPTIONS':
-        response = make_response('', 204)
-        return _apply_cors(response)
-    return None
-
-
-@app.after_request
-def add_cors_headers(response):
-    return _apply_cors(response)
-
-
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    return jsonify({'status': 'ok', 'timestamp': datetime.utcnow().isoformat() + 'Z'})
-
-
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mental-health-app-secret-key-2024')
-
-# Read database URL from environment (for Render Postgres)
-db_url = os.environ.get('DATABASE_URL')
-
-# Render Postgres often uses "postgres://" – SQLAlchemy prefers "postgresql://"
-if db_url and db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql://", 1)
-
-# Fallback to local SQLite if no DATABASE_URL is set (for local dev)
-app.config['SQLALCHEMY_DATABASE_URI'] = db_url or 'sqlite:///mental_health.db'
-
+# Configuration
+app.config['SECRET_KEY'] = 'mental-health-app-secret-key-2024'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:CorcCebLxkrqKyWZfKyGwrIRGWbjitSK@metro.proxy.rlwy.net:57961/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-secret-key-2024')
+app.config['JWT_SECRET_KEY'] = 'jwt-secret-key-2024'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
-
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
