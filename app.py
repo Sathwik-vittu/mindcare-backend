@@ -7,7 +7,18 @@ from datetime import datetime, timedelta
 import os
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173", "https://tici-01680008.vercel.app", "https://*.vercel.app", "https://*.netlify.app"], supports_credentials=True)
+CORS(
+    app,
+    resources={r"/api/*": {
+        "origins": [
+            "http://localhost:5173",
+            "https://mindcare-frontend-theta.vercel.app",
+        ],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "supports_credentials": True,
+    }},
+)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mental-health-app-secret-key-2024')
 
