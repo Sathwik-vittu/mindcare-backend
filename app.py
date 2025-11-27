@@ -34,7 +34,7 @@ def health_check():
 
 
 app.config['SECRET_KEY'] = 'mental-health-app-secret-key-2024'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:CorcCebLxkrqKyWZfKyGwrIRGWbjitSK@metro.proxy.rlwy.net:57961/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mindcare_db_yo4i_user:GGk16MX6Y2efpHCAdJCC0Ho54rqAGkNA@dpg-d4jt352li9vc73dc7glg-a/mindcare_db_yo4i'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'jwt-secret-key-2024'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
