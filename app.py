@@ -27,6 +27,12 @@ def handle_preflight():
 def add_cors_headers(response):
     return _apply_cors(response)
 
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'ok', 'timestamp': datetime.utcnow().isoformat() + 'Z'})
+
+
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mental-health-app-secret-key-2024')
 
 # Read database URL from environment (for Render Postgres)
