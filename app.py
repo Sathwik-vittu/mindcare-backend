@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
@@ -6,6 +6,31 @@ from datetime import datetime, timedelta
 import os
 
 app = Flask(__name__)
+
+
+def _apply_cors(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    return response
+
+
+@app.before_request
+def handle_preflight():
+    if request.method == 'OPTIONS':
+        response = make_response('', 204)
+        return _apply_cors(response)
+    return None
+
+
+@app.after_request
+def add_cors_headers(response):
+    return _apply_cors(response)
+
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'ok', 'timestamp': datetime.utcnow().isoformat() + 'Z'})
 
 # Configuration
 app.config['SECRET_KEY'] = 'mental-health-app-secret-key-2024'
