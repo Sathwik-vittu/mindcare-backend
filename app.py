@@ -32,7 +32,7 @@ def add_cors_headers(response):
 def health_check():
     return jsonify({'status': 'ok', 'timestamp': datetime.utcnow().isoformat() + 'Z'})
 
-# Configuration
+
 app.config['SECRET_KEY'] = 'mental-health-app-secret-key-2024'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:CorcCebLxkrqKyWZfKyGwrIRGWbjitSK@metro.proxy.rlwy.net:57961/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
