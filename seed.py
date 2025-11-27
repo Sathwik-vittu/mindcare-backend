@@ -1,8 +1,3 @@
-"""
-Seed script to populate the database with sample data
-Run this file to add test users, medications, appointments, and forum posts
-"""
-
 from app import app, db, User, Medication, Appointment, ForumPost, ForumReply, bcrypt
 from datetime import datetime, timedelta
 import random
